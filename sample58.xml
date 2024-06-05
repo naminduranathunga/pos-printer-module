@@ -1,0 +1,53 @@
+<document>
+    <page dpi="201" width="48mm" height="auto" comment="for 58mm document">
+        <column>
+            <text falign="center" font="Calibri" fweight="800" fsize="7mm">Flexaro</text>
+            <text fsize="3mm">-------------------------------------------------------------------</text>
+            <row>
+                <column width="50%">
+                    <text fsize="3mm">Date: 2020-01-01</text>
+                    <text fsize="3mm" falign="left">Time: 12:00:00</text>
+                </column>
+                <column width="50%">
+                    <text fsize="3mm" falign="left">No: 124533</text>
+                    <text fsize="3mm" falign="left">Cashier: 23423</text>
+                </column>
+            </row>
+            <text fsize="3mm">-------------------------------------------------------------------</text>
+
+            <column padding="0 0 4mm 0">
+                <row>
+                    <text width="3mm" fsize="3mm">1</text>
+                    <text fsize="3mm"  width="30mm">MD Cordial 500ML</text>
+                </row>
+                <row>
+                    <text width="20mm" fsize="3mm"></text>
+                    <text width="8mm" fsize="3mm">1</text>
+                    <text width="8mm" fsize="3mm">*</text>
+                    <text width="16mm" fsize="3mm">384.00</text>
+                    <text width="16mm" fsize="3mm" falign="right">380.00</text>
+                </row>
+            </column>
+
+            
+            <column padding="0 0 4mm 0">
+                <row>
+                    <text width="3mm" fsize="3mm">1</text>
+                    <text fsize="3mm"  width="30mm">MD Cordial 500ML</text>
+                </row>
+                <row>
+                    <text width="20mm" fsize="3mm"></text>
+                    <text width="8mm" fsize="3mm">1</text>
+                    <text width="8mm" fsize="3mm">*</text>
+                    <text width="16mm" fsize="3mm">384.00</text>
+                    <text width="16mm" fsize="3mm" falign="right">380.00</text>
+                </row>
+            </column>
+
+            <text fsize="3mm">-------------------------------------------------------------------</text>
+
+            <text falign="center" fsize="3mm">Thank You!</text>
+            <text falign="center" fsize="2mm">Come Again</text>
+        </column>
+    </page>
+</document>
