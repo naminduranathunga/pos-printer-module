@@ -1,6 +1,9 @@
-<document dpi="201">
-    <page width="48mm" height="auto" comment="for 58mm document">
+<document dpi="600">
+    <page width="210mm" height="auto" comment="for 58mm document">
         <column>
+            <column halign="center" padding="0 0 10mm 0" border="1 1 1 1">
+                <image src="D:\websites\POS\pos-printer-module\leaf.png" width="50%" height="auto" />
+            </column>
             <text falign="center" font="Calibri" fweight="800" fsize="7mm">Flexaro</text>
             <text fsize="3mm">-------------------------------------------------------------------</text>
             <row>

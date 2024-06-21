@@ -17,8 +17,19 @@ void loadxml_content(string filename, string& content){
     }
 }
 
+void test_print(){
+    string content;
+    loadxml_content("../sample58img copy.xml", content);
+    PrintDocument* doc = new PrintDocument(content, 300, 380, 0);
+    doc->printer_name = "POS-58";
+    doc->dpi = 201;
+    doc->print();
+}
 
 int main(int argc, char* argv[]){
+    test_print();
+    return 0;
+
     // parsing arguments
     argparse::ArgumentParser program("PosPrinterModule");
 
@@ -67,17 +78,6 @@ int main(int argc, char* argv[]){
     } else {
         cout << program;
     }
-    return 0;
-    if (argc == 2 && string(argv[1]) == "list"){
-        show_printer_list();
-    }
-    //show_printer_list();
-    string content;
-    loadxml_content("../sample.xml", content);
-    PrintDocument* doc = new PrintDocument(content, 300, 380, 0);
-    doc->print();
-
-    std::string printer_name = "Canon G1010 series";
     return 0;
 }
 

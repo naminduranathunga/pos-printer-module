@@ -105,7 +105,6 @@ void Text::CalculateRect(LayoutReferenceToolbox toolbox){
     int text_length = text.length();
 
     int max_width = parse_unit(width, &toolbox);
-    cout<<"Max width: "<<toolbox.parentWidth<<endl;
     if (width == "auto"){
         // set for width of parent
         max_width = toolbox.parentWidth;

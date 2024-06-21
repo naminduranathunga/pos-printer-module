@@ -3,6 +3,8 @@
 #define PAGE_H 1
 
 #include "block.h"
+#include <gdiplus.h>
+
 
 namespace SimpleDoc{
     // this contains printer specific information for a page
@@ -47,6 +49,28 @@ namespace SimpleDoc{
             bool underline;
         private: 
             int font_height;
+    };
+
+    class Image: public Block{
+        public:
+            Image(rapidxml::xml_node<>* image_node);
+            ~Image();
+            void CalculateRect(LayoutReferenceToolbox toolbox);
+            void RenderBlock(HDC hdc);
+
+            string src;
+            string width;
+            string height;
+            int image_width;
+            int image_height;
+            float aspect_ratio;
+
+        private:
+            Gdiplus::Bitmap* bitmap;
+            ULONG_PTR gdiplusToken;
+            string parse_base64Images(string src);
+            string temp_file_name;
+
     };
 };
 

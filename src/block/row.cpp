@@ -9,17 +9,6 @@ Row::Row(xml_node<>* page_node): Block(page_node){
     if (page_node->first_attribute("gap") != 0){
         gap = page_node->first_attribute("gap")->value();
     }
-
-    /*
-    justifyContent = JUSTIFY_CONTENT_START;
-    if (page_node->first_attribute("justify-content") != 0){
-        string justify_content = page_node->first_attribute("justify-content")->value();
-        if (justify_content == "center"){
-            justifyContent = JUSTIFY_CONTENT_CENTER;
-        } else if (justify_content == "end"){
-            justifyContent = JUSTIFY_CONTENT_END;
-        }
-    }*/
     
     fill_children(page_node);
 }
@@ -71,8 +60,6 @@ void Row::CalculateRect(LayoutReferenceToolbox toolbox){
 
         // set vertical position
         child->layoutRect.y = layoutRect.y + padding_values.top;
-        cout << "New y position: " << child->layoutRect.y << endl;
-
     }
 
     // get the max height of children

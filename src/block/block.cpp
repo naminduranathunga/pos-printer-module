@@ -86,6 +86,8 @@ void Block::fill_children(rapidxml::xml_node<>* block_node){
             block = new Page(child_node);
         } else if (name == "text") {
             block = new Text(child_node);
+        } else if (name == "image") {
+            block = new Image(child_node);
         } else {
             cout << "Unknown block type" << endl;
         }
@@ -121,6 +123,9 @@ void Block::CalculateRect(LayoutReferenceToolbox toolbox){
     // initial rect calculation - calculate basic inner info
     // parse Padding
     vector<string> padding_values_str = split_string(padding, ' ');
+    if (padding_values_str.size() != 4){
+        throw runtime_error("Padding values are incorrect");
+    }
     padding_values.top = parse_unit(padding_values_str[0], &toolbox, VERTICAL);
     padding_values.right = parse_unit(padding_values_str[1], &toolbox, HORIZONTAL);
     padding_values.bottom = parse_unit(padding_values_str[2], &toolbox, VERTICAL);
@@ -129,6 +134,9 @@ void Block::CalculateRect(LayoutReferenceToolbox toolbox){
 
     // parse border
     vector<string> border_values_str = split_string(border, ' ');
+    if (border_values_str.size() != 4){
+        throw runtime_error("Border values are incorrect");
+    }
     border_values.top = parse_unit(border_values_str[0], &toolbox, VERTICAL);
     border_values.right = parse_unit(border_values_str[1], &toolbox, HORIZONTAL);
     border_values.bottom = parse_unit(border_values_str[2], &toolbox, VERTICAL);
@@ -207,15 +215,22 @@ void Block::RenderBlock(HDC hdc){
     RECT rect = {layoutRect.x, layoutRect.y, layoutRect.x + layoutRect.width, layoutRect.y + layoutRect.height};
     HBRUSH brush = CreateSolidBrush(RGB(0, 0, 0));
     // stroke
-    HPEN pen = CreatePen(PS_SOLID, 4, RGB(255, 255, 255));
+    HPEN pen = CreatePen(PS_SOLID, 4, RGB(0, 0, 0));
     SelectObject(hdc, pen);
     SelectObject(hdc, brush);
     //Rectangle(hdc, rect.left, rect.top, rect.right, rect.bottom);
-    LineTo(hdc, rect.right, rect.bottom);
-    LineTo(hdc, rect.left, rect.bottom);
-    LineTo(hdc, rect.left, rect.top);
-    LineTo(hdc, rect.right, rect.top);
-    // draw border lines 
-
-
+    if (border_values.top > 0){
+        Rectangle(hdc, rect.left, rect.top, rect.right, rect.top + border_values.top);
+    }
+    if (border_values.right > 0){
+        Rectangle(hdc, rect.right - border_values.right, rect.top, rect.right, rect.bottom);
+    }
+    if (border_values.bottom > 0){
+        Rectangle(hdc, rect.left, rect.bottom - border_values.bottom, rect.right, rect.bottom);
+    }
+    if (border_values.left > 0){
+        Rectangle(hdc, rect.left, rect.top, rect.left + border_values.left, rect.bottom);
+    }
+    DeleteObject(brush);
+    DeleteObject(pen);
 }

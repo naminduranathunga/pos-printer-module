@@ -14,15 +14,11 @@ Column::Column(xml_node<>* page_node): Block(page_node){
         gap = page_node->first_attribute("gap")->value();
     }
 
-    /*justifyContent = JUSTIFY_CONTENT_START;
-    if (page_node->first_attribute("justify-content") != 0){
-        string justify_content = page_node->first_attribute("justify-content")->value();
-        if (justify_content == "center"){
-            justifyContent = JUSTIFY_CONTENT_CENTER;
-        } else if (justify_content == "end"){
-            justifyContent = JUSTIFY_CONTENT_END;
-        }
-    }*/
+    if (page_node->first_attribute("halign") != 0){
+        justifyContent = page_node->first_attribute("halign")->value();
+    }else{
+       justifyContent = "left";
+    }
     
     fill_children(page_node);
 }
@@ -65,25 +61,21 @@ void Column::CalculateRect(LayoutReferenceToolbox toolbox){
     child_toolbox.parentWidth = inner_width;
     child_toolbox.parentHeight = inner_height;
 
-    int cursor_x = 0;
+    int cursor_y = 0;
     for (int i = 0; i < children.size(); i++){
         Block* child = children[i];
         child->CalculateRect(child_toolbox);
         
-        // now set it's position x = cursor_x
-        child->layoutRect.y = cursor_x + layoutRect.y + padding_values.top;
-        cursor_x = cursor_x + child->layoutRect.height + gap_x;
-        child->layoutRect.x = 0;
+        child->layoutRect.y = cursor_y + layoutRect.y + padding_values.top;
+        cursor_y = cursor_y + child->layoutRect.height + gap_x;
 
-
-        // vertical position
-        /*if (justifyContent == string(JUSTIFY_CONTENT_CENTER)){
-            child->layoutRect.y = (layoutRect.height - child->layoutRect.height) / 2;
-        } else if (justifyContent == string(JUSTIFY_CONTENT_END)){
-            child->layoutRect.y = layoutRect.height - child->layoutRect.height;
-        } else {
-            
-        }*/
+        if (justifyContent == "center"){
+            child->layoutRect.x = (layoutRect.width - child->layoutRect.width) / 2;
+        } else if (justifyContent == "end" || justifyContent == "right"){
+            child->layoutRect.x = layoutRect.width - child->layoutRect.width;
+        }else {
+            child->layoutRect.x = 0;
+        }
     }
 
     // set the height of the column based on children
